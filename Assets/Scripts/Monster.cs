@@ -13,6 +13,7 @@ public class Monster : MonoBehaviour
     {
         if (ShouldDieFromCollision(collision))
         {
+            SFXManager.sfxInstance.Audio.PlayOneShot(SFXManager.sfxInstance.Scream);
             StartCoroutine(Die());
         }
     }
