@@ -26,7 +26,7 @@ public class LevelController : MonoBehaviour
         SceneManager.LoadScene(_nextLevelName);
     }
 
-    bool MonstersAreAllDead()
+    public bool MonstersAreAllDead()
     {
         foreach (var monster in _monsters)
         {

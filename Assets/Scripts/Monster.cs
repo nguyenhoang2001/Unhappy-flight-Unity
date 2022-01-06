@@ -5,7 +5,6 @@ using UnityEngine;
 [SelectionBase]
 public class Monster : MonoBehaviour
 {
-
     [SerializeField] Sprite _deadSprite;
     [SerializeField] ParticleSystem _particleSystem;
     bool _hasDied;

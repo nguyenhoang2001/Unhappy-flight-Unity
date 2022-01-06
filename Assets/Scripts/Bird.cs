@@ -9,7 +9,14 @@ public class Bird : MonoBehaviour
     Vector2 _startPosition;
     Rigidbody2D _rigidbody2D;
     SpriteRenderer _spriteRenderer;
-
+    heart1[] _hearts;
+    Monster[] _monsters;
+    bool _timeToUpdate = false;
+    void OnEnable()
+    {
+        _hearts = FindObjectsOfType<heart1>();
+        _monsters = FindObjectsOfType<Monster>();
+    }
     void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -53,6 +60,7 @@ public class Bird : MonoBehaviour
             desiredPosition.x = _startPosition.x;
 
         _rigidbody2D.position = desiredPosition;
+        _timeToUpdate = true;
     }
     // Update is called once per frame
     void Update()
@@ -63,6 +71,11 @@ public class Bird : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collistion)
     {
         StartCoroutine(ResetAfterDelay());
+        if (_timeToUpdate == true)
+        {
+            UpdateHeart();
+            _timeToUpdate = false;
+        }
     }
 
     IEnumerator ResetAfterDelay()
@@ -71,5 +84,31 @@ public class Bird : MonoBehaviour
         _rigidbody2D.position = _startPosition;
         _rigidbody2D.isKinematic = true;
         _rigidbody2D.velocity = Vector2.zero;
+    }
+
+    void UpdateHeart()
+    {
+        if (MonstersAreAllDead() == false)
+        {
+            foreach (var heart in _hearts)
+            {
+                if (heart.gameObject.activeSelf)
+                {
+                    heart.Reduce();
+                    return;
+                }
+            }
+        }
+
+    }
+
+    bool MonstersAreAllDead()
+    {
+        foreach (var monster in _monsters)
+        {
+            if (monster.gameObject.activeSelf)
+                return false;
+        }
+        return true;
     }
 }
