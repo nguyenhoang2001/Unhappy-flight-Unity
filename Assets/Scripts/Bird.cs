@@ -12,6 +12,7 @@ public class Bird : MonoBehaviour
     heart1[] _hearts;
     Monster[] _monsters;
     bool _timeToUpdate = false;
+
     void OnEnable()
     {
         _hearts = FindObjectsOfType<heart1>();
@@ -32,6 +33,7 @@ public class Bird : MonoBehaviour
     void OnMouseDown()
     {
         _spriteRenderer.color = Color.red;
+
     }
 
     void OnMouseUp()
@@ -42,6 +44,7 @@ public class Bird : MonoBehaviour
         _rigidbody2D.isKinematic = false;
         _rigidbody2D.AddForce(direction * _launchForce);
         _spriteRenderer.color = Color.white;
+
     }
 
     void OnMouseDrag()
